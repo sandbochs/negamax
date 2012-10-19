@@ -21,3 +21,8 @@ class GameState
   def to_s
     @state
   end
+
+  def get_states
+    @@ALL_STATES
+  end
+end

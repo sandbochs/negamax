@@ -11,7 +11,8 @@ class OneToNGameNode < GameNode
   def get_children
     return nil if @game_total >= @end_game_value
     new_player = 1 - @player
-    [self.class.new(new_player, @game_total + 1), self.class.new(new_player, @game_total + 2)]
+    [self.class.new(new_player, @game_total + 1),
+     self.class.new(new_player, @game_total + 2)]
   end
 
   def leaf_value

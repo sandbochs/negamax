@@ -1,3 +1,4 @@
+
 class GameNode
 
   def value
