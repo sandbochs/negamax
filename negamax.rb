@@ -1,35 +1,56 @@
-#!/usr/bin/env ruby
+class GameState
+  
+  @@ALL_STATES = {}
+  
+  attr_reader :value
 
- # TODO - figure out how to ruby-classify this
-WIN = 2
-TIE = 1
-LOSE = 0
+  def initialize(value, state_string)
+    @value = value
+    @state = state_string
+    @@ALL_STATES[value] = self
+  end
+
+  def <=>(other)
+    @value - other.value
+  end
+
+  def invert
+    @@ALL_STATES[2 - @value]
+  end
+
+  def to_s
+    @state
+  end
+
+end
 
 class GameNode
 
   def value
-   return self.end_value if self.end_value != nil
-   self.get_children.map { |child| -child.value }.max + 2
+   return self.leaf_value if self.leaf_value != nil
+   self.get_children.map { |child| child.value.invert }.max
   end
 
 end
 
 class OneToNGameNode < GameNode
 
+  attr_accessor :game_total
+
   def initialize(player, game_total)
     @player = player
     @game_total = game_total
-    @end_value = 0
+    @end_game_value = 0
   end
 
   def get_children
-    return nil if @game_total >= @end_value
+    return nil if @game_total >= @end_game_value
     new_player = 1 - @player
     [self.class.new(new_player, @game_total + 1), self.class.new(new_player, @game_total + 2)]
   end
 
-  def end_value
-    @game_total >= @end_value ? WIN : nil
+  def leaf_value
+    @game_total >= @end_game_value ? WIN : nil #nil means not a leaf
   end
 
 end
@@ -37,8 +58,8 @@ end
 class OneToTenGameNode < OneToNGameNode
 
   def initialize(player, game_total)
-    @end_value = 10
     super
+    @end_game_value = 10
   end
 
 end
@@ -46,9 +67,14 @@ end
 class OneToFiveGameNode < OneToNGameNode
 
   def initialize(player, game_total)
-    @end_value = 5
     super
+    @end_game_value = 5
   end
 
 end
 
+WIN = GameState.new(2, "WIN")
+LOSE = GameState.new(0, "LOSE")
+
+game_state = OneToTenGameNode.new(0, 9) #Should be a lose
+puts game_state.value
