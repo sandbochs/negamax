@@ -20,7 +20,7 @@ class OneToTenGame
 		@current_val = 0
 	end
 
-	def play_as_one
+	def play_as_one	#Player 1 always loses if player 2 plays optimally
 
 		while @current_val < @end_game_val
 			player_move(get_input)
@@ -51,10 +51,12 @@ class OneToTenGame
 	end
 
 	def ai_move(node)
+		#Choose best immediate child node
 		node.get_children.each_with_index do |child, index|
 			return index + 1 if child.value.invert == WIN
 		end	
 
+		#If both child nodes result in a loss choose node with chance to win
 		if node.game_total < 9
 			node.get_children.each_with_index do |child, index|
 				return index + 1 if ai_move2(child) > 0
@@ -84,8 +86,10 @@ class OneToTenGame
 
 end
 
+#Mandatory GameStates (No ties in this zero-sum game)
 WIN = GameState.new(2, "WIN")
 LOSE = GameState.new(0, "LOSE")
+
 game = OneToTenGame.new
 puts "Do you want to be Player 1 or 2?"
 case gets.chomp.to_i
