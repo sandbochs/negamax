@@ -59,7 +59,7 @@ class OneToTenGame
 		#If both child nodes result in a loss choose node with chance to win
 		if node.game_total < 9
 			node.get_children.each_with_index do |child, index|
-				return index + 1 if ai_move2(child) > 0
+				return index + 1 if ai_move(child) > 0
 			end
 		else
 			return 1 #AI Loss
