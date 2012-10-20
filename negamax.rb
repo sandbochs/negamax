@@ -72,9 +72,3 @@ class OneToFiveGameNode < OneToNGameNode
   end
 
 end
-
-WIN = GameState.new(2, "WIN")
-LOSE = GameState.new(0, "LOSE")
-
-game_state = OneToTenGameNode.new(0, 9) #Should be a lose
-puts game_state.value
