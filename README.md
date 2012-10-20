@@ -6,4 +6,4 @@ Need to figure out how to caluclate all the node.values only once instead of cal
 
 Would like to implement Alpha Beta pruning.
 
-Take everything and implement Tic Tac Toe
+Take everything and implement Tic Tac Toe.
