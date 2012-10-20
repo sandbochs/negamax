@@ -1,4 +1,4 @@
-### Thank you Jeremy and Phil! ######
+### This is an implementation of Negamax for ruby ######
 
 OneToNGame lets the player choose to play up to N. It also lets the player choose to go first or second.
 
