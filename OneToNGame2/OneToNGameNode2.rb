@@ -22,14 +22,22 @@ class OneToNGameNode < GameNode
 
 
   def value
+    
     if self.leaf_value != nil
       val = self.leaf_value
       @@NODE_VALUES[self.game_total] = val
       return val
     end
-    val = self.get_children.map { |child| child.value.invert }.max
-    @@NODE_VALUES[self.game_total] = val
-    val
+    
+    #Ignore nodes that have already been searched
+    if @@NODE_VALUES.has_key?(self.game_total) == false
+      val = self.get_children.map { |child| child.value.invert }.max
+      @@NODE_VALUES[self.game_total] = val if val != nil
+      return val
+    else
+      return @@NODE_VALUES[self.game_total] #Return already saved value
+    end
+    
   end
 
   def node_values

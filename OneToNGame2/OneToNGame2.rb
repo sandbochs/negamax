@@ -1,7 +1,7 @@
+#!/usr/bin/env ruby
 require './GameNode.rb'
 require './OneToNGameNode2.rb'
 require './GameState.rb'
-require 'pry'
 
 class OneToNGame
 
@@ -29,7 +29,6 @@ class OneToNGame
 	end
 
 	def play
-		puts "Thinking..."
 		nodes = OneToNGameNode.new(0, @current_value, @end_game_value)	#create starting node
 		nodes.value #calculate node values
 		@node_values = nodes.node_values #store node values
@@ -69,7 +68,6 @@ class OneToNGame
 	end
 
 	def winning_message
-		binding.pry
 		if @last_player == @ai_player_num
 			puts "Current Value: #{@current_value} - You Lost!"
 		else
@@ -82,8 +80,8 @@ class OneToNGame
 		puts "What number would you like to play up to?"
 		begin
 			input = gets.chomp.to_i
-			puts "Please choose a number between 5 and 30" if input < 5
-		end while input < 5 || input > 30
+			puts "Please choose a number greater than 5" if input <= 5
+		end while input <= 5
 		@end_game_value = input
 
 	end
