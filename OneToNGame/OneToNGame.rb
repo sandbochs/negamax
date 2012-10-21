@@ -34,7 +34,9 @@ class OneToNGame
 			player_move(get_input)
 			#AI Turn
 			if @current_value < @end_game_value
-				@current_value += ai_move(OneToNGameNode.new(@ai_player_num, @current_value, @end_game_value))
+				move = ai_move(OneToNGameNode.new(@ai_player_num, @current_value, @end_game_value))
+				puts "Current Value: #{@current_value} - Computer adds: #{move}"
+				@current_value += move	
 			else
 				puts "Current Value: #{@current_value} - You Lost!"
 			end
@@ -72,7 +74,7 @@ class OneToNGame
 	def get_input
 
 		begin
-			puts "Your move! Current Value: #{@current_value}"
+			puts "Current Value: #{@current_value} - Your move! "
 			puts "Please add 1 or 2"
 			input = gets.chomp.to_i
 		end while input < 1 || input > 2
