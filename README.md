@@ -2,14 +2,14 @@
 
 In progress 
 Take everything and implement Tic Tac Toe.
-Implement TicTacToeNode
-~~Implement command-line UI~~
-Would like to memoize board values
-Would like to prune branches already traversed
-Would like to identify matching rotations and reflections and prune those branches aswell
+-~~Implement TicTacToeNode~~
+-Implement command-line UI
+-Memoize board values
+-Prune branches already traversed
+-Identify matching rotations and reflections and prune those branches aswell
 
 OneToNGame2 calculcates all node values then stores it in a hash. The AI references the hash for each turn instead of traversing the game tree again.
-~~Need to figure out how to caluclate all the node.values only once instead of calculating all children.values every turn.~~
+-~~Need to figure out how to caluclate all the node.values only once instead of calculating all children.values every turn.~~
 
 OneToNGame lets the player choose to play up to N. It also lets the player choose to go first or second.
 
