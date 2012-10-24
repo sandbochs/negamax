@@ -5,12 +5,9 @@ Take everything and implement Tic Tac Toe.
 
 - ~~Implement TicTacToeNode~~
 - Implement command-line UI
-- Refactor, refactor, refactor
 - Memoize board values
 - Prune branches already traversed
-- Refactor, refactor, refactor
 - Identify matching rotations and reflections and prune those branches aswell
-- Refactor, refactor, refactor
 
 OneToNGame2 calculcates all node values then stores it in a hash. The AI references the hash for each turn instead of traversing the game tree again.
 
