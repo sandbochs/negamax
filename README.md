@@ -9,4 +9,5 @@ Implemented!
 
 Would like to implement Alpha Beta pruning.
 
-Take everything and implement Tic Tac Toe.
+<In progress> Take everything and implement Tic Tac Toe.
+Implented Tic Tac Toe node! Need to fix the winning logic to lose... when a player receives a "winning" board that means he lost
