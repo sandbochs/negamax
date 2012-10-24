@@ -15,11 +15,11 @@ class TicTacToeNode < GameNode
 		leaf_val = self.leaf_value
 		return leaf_val if leaf_val != nil
 
-		@player == 0 ? next_player = "O" : next_player = "X"
+		@player == 0 ? player = "X" : player = "O"
 		children = []
 		0.upto(@board.length - 1) do |index|
 			if @board[index].upcase != "X" && @board[index].upcase != "O"
-				new_board = @board.slice(0..(index- 1)) + next_player + @board.slice((index + 1)..(@board.length - 1))
+				new_board = @board.slice(0..(index- 1)) + player + @board.slice((index + 1)..(@board.length - 1))
 				children << self.class.new(1 - @player, new_board)
 			end
 		
@@ -30,10 +30,10 @@ class TicTacToeNode < GameNode
 	def leaf_value
 		if winning_board?(@player)
 			return WIN
+		elsif winning_board?(1 - @player) && !tie?
+			return LOSE
 		elsif tie?
 			return TIE
-		elsif winning_board?(1 - @player)
-			return LOSE
 		end
 		nil	#Not a leaf
 	end
@@ -41,6 +41,7 @@ class TicTacToeNode < GameNode
 	def tie?
 		0.upto(@board.length - 1) do |index|
 			if @board[index].upcase != "X" && @board[index].upcase != "O"
+				puts @board[index]
 				return false
 			end
 		end

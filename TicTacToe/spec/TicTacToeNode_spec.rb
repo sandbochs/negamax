@@ -31,9 +31,9 @@ describe TicTacToeNode do
 			# 0 | 1 | 2
 			# 3 | 4 | 5
 			# X | X | X
-			it "should be a win" do
+			it "should not be a win for player 2" do
 				board = TicTacToeNode.new(0, "012345XXX")
-				board.should be_winning_board(0)
+				board.should_not be_winning_board(1)
 			end
 		end
 
@@ -57,9 +57,9 @@ describe TicTacToeNode do
 			# 0 | 1 | X
 			# 3 | 4 | X
 			# 6 | 7 | X
-			it "should be a win" do
+			it "should not be a win for player 2" do
 				board = TicTacToeNode.new(0, "01X34X67X")
-				board.should be_winning_board(0)
+				board.should_not be_winning_board(1)
 			end
 		end
 
@@ -75,11 +75,12 @@ describe TicTacToeNode do
 			# 0 | 1 | X
 			# 3 | X | 5
 			# X | 7 | 8
-			it "should be a win" do
+			it "should not be a win for player 2" do
 				board = TicTacToeNode.new(0, "01X3X5X78")
-				board.should be_winning_board(0)
+				board.should_not be_winning_board(1)
 			end
 		end
+
 	end
 
 	context "tied board"	do
@@ -127,20 +128,28 @@ describe TicTacToeNode do
 	end
 
 	context "values" do
-		it "should" do
-			# X | X | 2
+		it "should be a tied board 1" do
+			# X | O | X
 			# 3 | O | 5
-			# 6 | 7 | O
-			board = TicTacToeNode.new(0, "XX23O567O")
+			# 6 | X | O
+			board = TicTacToeNode.new(0, "XOX3O56XO")
 			board.value.should == TIE
 		end
 
-		it "should have a leaf value of tie" do
-			# O | X | O
-			# X | O | X
+		it "should be a tied board 2" do
+			# O | X | X
+			# X | O | O
 			# O | X | 8
-			board = TicTacToeNode.new(0, "OXOXOXOX8")
-			board.value.should == WIN
+			board = TicTacToeNode.new(0, "OXXXOOOX8")
+			board.value.should == TIE
+		end		
+
+		it "should be a tied board 3" do
+			# O | X | X
+			# X | O | O
+			# O | X | 8
+			board = TicTacToeNode.new(0, "OXXXOOOXO")
+			board.leaf_value.should == TIE
 		end
 	end
 

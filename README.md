@@ -1,13 +1,16 @@
 ### Ruby implentation of Negamax #####
 
-OneToNGame lets the player choose to play up to N. It also lets the player choose to go first or second.
+In progress 
+Take everything and implement Tic Tac Toe.
+Implement TicTacToeNode
+~~Implement command-line UI~~
+Would like to memoize board values
+Would like to prune branches already traversed
+Would like to identify matching rotations and reflections and prune those branches aswell
 
 OneToNGame2 calculcates all node values then stores it in a hash. The AI references the hash for each turn instead of traversing the game tree again.
+~~Need to figure out how to caluclate all the node.values only once instead of calculating all children.values every turn.~~
 
-~~Need to figure out how to caluclate all the node.values only once instead of~~ ~~calculating all children.values every turn.~~
-Implemented!
+OneToNGame lets the player choose to play up to N. It also lets the player choose to go first or second.
 
-Would like to implement Alpha Beta pruning.
-
-<In progress> Take everything and implement Tic Tac Toe.
-Implented Tic Tac Toe node! Need to fix the winning logic to lose... when a player receives a "winning" board that means he lost
+OneToTenGame is a two player game where player one starts with 0 and decides to add 1 or 2. Player two then receives the 0 board + 1 or 2 depending on what player one added. The first player to add to 10 or over loses.
