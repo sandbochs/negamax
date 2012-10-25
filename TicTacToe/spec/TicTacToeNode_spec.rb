@@ -1,5 +1,3 @@
-#NEED TO FIX WINNING LOGIC TO LOSING
-
 require_relative	'../TicTacToeNode'
 require_relative '../GameNode'
 require_relative '../GameState'
@@ -17,7 +15,7 @@ describe TicTacToeNode do
 			# 6 | 7 | 8
 			it "should be a win" do
 				board = TicTacToeNode.new(0, "XXX345678")
-				board.should be_winning_board(0)
+				board.should be_winning_node(0)
 			end
 
 			# 0 | 1 | 2
@@ -25,7 +23,7 @@ describe TicTacToeNode do
 			# 6 | 7 | 8
 			it "should be a win" do
 				board = TicTacToeNode.new(0, "012XXX678")
-				board.should be_winning_board(0)
+				board.should be_winning_node(0)
 			end
 
 			# 0 | 1 | 2
@@ -33,7 +31,7 @@ describe TicTacToeNode do
 			# X | X | X
 			it "should not be a win for player 2" do
 				board = TicTacToeNode.new(0, "012345XXX")
-				board.should_not be_winning_board(1)
+				board.should_not be_winning_node(1)
 			end
 		end
 
@@ -43,7 +41,7 @@ describe TicTacToeNode do
 			# X | 7 | 8
 			it "should be a win" do
 				board = TicTacToeNode.new(0, "X12X45X78")
-				board.should be_winning_board(0)
+				board.should be_winning_node(0)
 			end
 
 			# 0 | X | 2
@@ -51,7 +49,7 @@ describe TicTacToeNode do
 			# 6 | X | 8
 			it "should be a win" do
 				board = TicTacToeNode.new(0, "0X23X56X8")
-				board.should be_winning_board(0)
+				board.should be_winning_node(0)
 			end
 
 			# 0 | 1 | X
@@ -59,7 +57,7 @@ describe TicTacToeNode do
 			# 6 | 7 | X
 			it "should not be a win for player 2" do
 				board = TicTacToeNode.new(0, "01X34X67X")
-				board.should_not be_winning_board(1)
+				board.should_not be_winning_node(1)
 			end
 		end
 
@@ -69,7 +67,7 @@ describe TicTacToeNode do
 			# 6 | 7 | X
 			it "should be a win" do
 				board = TicTacToeNode.new(0, "X123X567X")
-				board.should be_winning_board(0)
+				board.should be_winning_node(0)
 			end
 
 			# 0 | 1 | X
@@ -77,7 +75,7 @@ describe TicTacToeNode do
 			# X | 7 | 8
 			it "should not be a win for player 2" do
 				board = TicTacToeNode.new(0, "01X3X5X78")
-				board.should_not be_winning_board(1)
+				board.should_not be_winning_node(1)
 			end
 		end
 

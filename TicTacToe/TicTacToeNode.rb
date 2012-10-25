@@ -1,14 +1,26 @@
-#NEED TO FIX WINNING LOGIC TO LOSING
 require './GameNode'
 require './GameState'
 
 class TicTacToeNode < GameNode
 
-	attr_reader = :board
+	#attr_reader = :board
 
 	def initialize(player, board)
 		@player = player #X = 0, O = 1
 		@board = board
+	end
+
+	def board
+		@board
+	end
+
+	def cell_empty?(index)
+		if index >= 0 && index <= 8
+			return false if @board[index] == "X" || @board[index] == "O"
+		else
+			return false
+		end
+		true
 	end
 
 	def get_children
@@ -19,7 +31,9 @@ class TicTacToeNode < GameNode
 		children = []
 		0.upto(@board.length - 1) do |index|
 			if @board[index].upcase != "X" && @board[index].upcase != "O"
-				new_board = @board.slice(0..(index- 1)) + player + @board.slice((index + 1)..(@board.length - 1))
+				new_board = ""
+				new_board = @board.slice(0..(index- 1)) if index > 0
+				new_board << player + @board.slice((index + 1)..(@board.length - 1))
 				children << self.class.new(1 - @player, new_board)
 			end
 		
@@ -28,9 +42,9 @@ class TicTacToeNode < GameNode
 	end
 
 	def leaf_value
-		if winning_board?(@player)
+		if winning_node?(@player)
 			return WIN
-		elsif winning_board?(1 - @player) && !tie?
+		elsif winning_node?(1 - @player) && !tie?
 			return LOSE
 		elsif tie?
 			return TIE
@@ -41,14 +55,13 @@ class TicTacToeNode < GameNode
 	def tie?
 		0.upto(@board.length - 1) do |index|
 			if @board[index].upcase != "X" && @board[index].upcase != "O"
-				puts @board[index]
 				return false
 			end
 		end
 		true
 	end
 
-	def winning_board?(player)
+	def winning_node?(player)
 		if row_win?(player) || col_win?(player) || dia_win?(player)
 			return true
 		end
