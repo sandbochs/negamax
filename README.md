@@ -4,7 +4,7 @@ In progress
 Take everything and implement Tic Tac Toe.
 
 - ~~Implement TicTacToeNode~~
-- Implement command-line UI
+- ~~Implement command-line UI~~
 - Memoize board values
 - Prune branches already traversed
 - Identify matching rotations and reflections and prune those branches aswell
