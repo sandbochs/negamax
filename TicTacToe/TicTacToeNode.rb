@@ -16,41 +16,10 @@ class TicTacToeNode < GameNode
 		@board
 	end
 
-	def node_values
-		@@NODE_VALUES
-	end
-
-	def valid_space?(index)
-		if index >= 0 && index <= 8
-			return cell_empty?(index)
-		else
-			return false
-		end
-		true
-	end	
-
-	def cell_empty?(index)
-		return false if @board[index] == "X" || @board[index] == "O"
-		true
-	end
-
-	def get_children
-		leaf_val = self.leaf_value
-		return leaf_val if leaf_val != nil
-
-		@player == 0 ? player = "X" : player = "O"
-		children = []
-		0.upto(@board.length - 1) do |index|
-			if @board[index].upcase != "X" && @board[index].upcase != "O"
-				new_board = ""
-				new_board = @board.slice(0..(index- 1)) if index > 0
-				new_board << player + @board.slice((index + 1)..(@board.length - 1))
-				children << self.class.new(1 - @player, new_board)
-			end
-		
-		end
-		children
-	end
+	#FOR MEMOIZATION
+	# def node_values 
+	# 	@@NODE_VALUES
+	# end
 
 	# FOR MEMOIZING NODE VALUES	
 	# def value
@@ -68,6 +37,47 @@ class TicTacToeNode < GameNode
  #   values.max
  #  end
 
+	def valid_space?(index)
+		if index >= 0 && index <= @board.length - 1
+			return cell_empty?(index)
+		else
+			return false
+		end
+		true
+	end	
+
+	def cell_empty?(index)
+		return false if @board[index] == "X" || @board[index] == "O"
+		true
+	end
+
+	def get_children
+		#Return WIN, TIE, or LOSE, if it is a leaf node
+		leaf_val = self.leaf_value
+		return leaf_val if leaf_val != nil
+
+		
+		children = []
+
+		#Create the boards for each possible move and store them in array children
+		0.upto(@board.length - 1) do |index|
+			if cell_empty?(index)
+				children << self.class.new(1 - @player, new_board(index))
+			end
+		end
+		children
+	end
+
+	#Inserts a player marker at index
+	def new_board(index)
+		board = "" #<< Need to keep empty board if starting at first index
+		board = @board.slice(0..index - 1) if index > 0 #Get the board before the index
+		@player == 0 ? board << "X" : board << "O" #Insert player move
+		board << @board.slice(index + 1..-1) #Get the board after the index
+		board
+	end
+
+	#Returns the value of a node with no more possible moves
 	def leaf_value
 		if winning_node?(@player)
 			return WIN
@@ -80,11 +90,8 @@ class TicTacToeNode < GameNode
 	end
 
 	def tie?
-		0.upto(@board.length - 1) do |index|
-			if @board[index].upcase != "X" && @board[index].upcase != "O"
-				return false
-			end
-		end
+		#If any cells are empty it can't be a tie... there are moves to be played
+		0.upto(@board.length - 1) { |index| return false if cell_empty?(index) }
 		true
 	end
 

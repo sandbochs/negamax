@@ -19,12 +19,13 @@ class TicTacToeGame
 		end
 
 		begin
-			input = player_input
-			set_move(input, 1 - @ai_player)
+			set_move(player_input)
 			puts "Thinking..."
 			ai_move
 		end until @current.winning_node?(@ai_player) || @current.tie?
+
 		draw_board
+    @current.tie? ? (puts "TIE GAME") : (puts "YOU LOST")
 	end
 
 	def ai_move
@@ -65,12 +66,12 @@ class TicTacToeGame
 		@current.rows.each { |row| puts " #{row[0]} | #{row[1]} | #{row[2]}"}
 	end
 
-	def set_move(index, player)
-		current_board = @current.board
-		index == 0 ? new_board = "" : new_board = current_board[0..(index - 1)]
-		player == 0 ? new_board << "X" : new_board << "O"
-		new_board << current_board[(index + 1)..-1]
-		@current = TicTacToeNode.new(1 - player, new_board)
+	def set_move(index)
+    board = ""
+    board = @current.board[0..index - 1] if index > 0
+		@ai_player == 0 ? board << "O" : board << "X" #If AI is player 1 then player is "O"
+		board << @current.board[index + 1..-1]
+		@current = TicTacToeNode.new(@ai_player, board)
 	end
 
 	def player_input
