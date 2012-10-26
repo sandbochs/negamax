@@ -1,6 +1,6 @@
 require './TicTacToeNode'
-require './GameNode'
 require './GameState'
+require 'yaml'
 
 class TicTacToeGame
 
@@ -9,21 +9,15 @@ class TicTacToeGame
 		@current = TicTacToeNode.new(0, "012345678")
 	end
 
+	def load_node_values(file_name)
+		@node_values = YAML.load_file(file_name)
+	end
+
 	def play
 		if @ai_player == 0 #If AI is player 1, choose middle spot always
 			@current = TicTacToeNode.new(1, "0123X5678")
 		end
 
-		#TEST
-		# O | 1 | X 
-		# 3 | 4 | O
-		# O | X | X
-		#@current = TicTacToeNode.new(0, "O1X34OOXX")
-		# draw_board
-		# ai_move
-		# draw_board
-		#test
-		#END
 		begin
 			input = player_input
 			set_move(input, 1 - @ai_player)
@@ -33,35 +27,38 @@ class TicTacToeGame
 		draw_board
 	end
 
-	def test
-		child = @current.get_children
-		child.each do |child|
-			test_draw(child)
-			puts "VAL: #{child.value.invert}"
-			puts "Board: #{child.board}"
-		end
-	end
-
-	def test_draw(child)
-		child.rows.each { |row| puts " #{row[0]} | #{row[1]} | #{row[2]}"}
-	end
-
 	def ai_move
 		@current = TicTacToeNode.new(1 - @ai_player, ai_strategy)
 	end
 
 	def ai_strategy
-		#Choose first WINNING child node
+		#Choose first WIN child node else go for the TIE
+		move = ""
+		is_win = false
+		win_this_turn = false
 		children = @current.get_children
+
 		children.each do |child|
-			return child.board if child.value.invert == WIN
+			if child.value.invert == WIN
+				move = child.board if win_this_turn == false
+				win_this_turn = true if child.winning_node?(@ai_player)
+				is_win = true
+			elsif child.value.invert == TIE
+				move = child.board if is_win == false
+			end
 		end
 
-		#Try to TIE
-		children.each do |child|
-			return child.board if child.value.invert == TIE
-		end
+		# FOR MEMOIZING NODE VALUES
+		# children.each do |child|
+		# 	if @node_values[child.board].invert == WIN
+		# 		move = child.board
+		# 		is_win = true
+		# 	elsif @node_values[child.board].invert == TIE
+		# 		move = child.board if is_win == false
+		# 	end
+		# end
 
+		move
 	end
 
 	def draw_board
@@ -70,12 +67,7 @@ class TicTacToeGame
 
 	def set_move(index, player)
 		current_board = @current.board
-
-		if index == 0
-			new_board = ""
-		else
-			new_board = current_board[0..(index - 1)]
-		end
+		index == 0 ? new_board = "" : new_board = current_board[0..(index - 1)]
 		player == 0 ? new_board << "X" : new_board << "O"
 		new_board << current_board[(index + 1)..-1]
 		@current = TicTacToeNode.new(1 - player, new_board)
@@ -86,7 +78,7 @@ class TicTacToeGame
 			draw_board
 			puts "Choose a space"
 			input = gets.chomp.to_i
-		end while !@current.cell_empty?(input)
+		end until @current.valid_space?(input)
 		input
 	end
 
@@ -112,4 +104,5 @@ TIE = GameState.new(1, "TIE")
 LOSE = GameState.new(0, "LOSE")
 
 ttt = TicTacToeGame.new
+#ttt.load_node_values('node_values.yml')
 ttt.choose_starting_player

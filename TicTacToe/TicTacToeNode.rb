@@ -1,25 +1,36 @@
-require './GameNode'
 require './GameState'
+require './GameNode'
 
 class TicTacToeNode < GameNode
 
-	#attr_reader = :board
+	#@@NODE_VALUES = {}
+	#attr_reader = :board #Why doesn't this worK!?
 
 	def initialize(player, board)
 		@player = player #X = 0, O = 1
 		@board = board
+		@values = {}
 	end
 
 	def board
 		@board
 	end
 
-	def cell_empty?(index)
+	def node_values
+		@@NODE_VALUES
+	end
+
+	def valid_space?(index)
 		if index >= 0 && index <= 8
-			return false if @board[index] == "X" || @board[index] == "O"
+			return cell_empty?(index)
 		else
 			return false
 		end
+		true
+	end	
+
+	def cell_empty?(index)
+		return false if @board[index] == "X" || @board[index] == "O"
 		true
 	end
 
@@ -40,6 +51,22 @@ class TicTacToeNode < GameNode
 		end
 		children
 	end
+
+	# FOR MEMOIZING NODE VALUES	
+	# def value
+ #   if self.leaf_value != nil
+ #   	@@NODE_VALUES[@board] = self.leaf_value
+ #   	return self.leaf_value 
+ #   end
+
+ #   values = []
+ #   self.get_children.each do |child|
+ #   	child_value = child.value.invert
+ #   	@@NODE_VALUES[child.board] = child_value
+ #   	values << child_value
+ #   end
+ #   values.max
+ #  end
 
 	def leaf_value
 		if winning_node?(@player)
