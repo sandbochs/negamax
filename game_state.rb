@@ -1,7 +1,7 @@
 class GameState
-	@@ALL_STATES = {}
-	
-	attr_reader :value
+  @@ALL_STATES = {}
+  
+  attr_reader :value
 
   def initialize(value, state_string)
     @value = value
@@ -10,11 +10,11 @@ class GameState
   end
 
   def <=>(other)
-  	@value - other.value
+    @value - other.value
   end
 
   def invert
-  	@@ALL_STATES[2 - @value]
+    @@ALL_STATES[2 - @value]
   end
 
   def to_s
