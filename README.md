@@ -1,8 +1,8 @@
 ### Ruby implentation of Negamax #####
 
-In progress 
+I went off on a tangent while learning about nested arrays that eventually turned into writing an unbeatable Tic Tac Toe 'AI'. I started this during the third week of Dev Bootcamp and it took about a week to learn how to implement the negamax algorithm and write OneToTenGame. Once OneToTenGame was written, it was easy to implement OneToNGame and optimize retrieval time for node values. The Tic Tac Toe node only took a few hours to write after spending so much time with OneToNGame.
 
-Take everything and implement Tic Tac Toe.
+Tic Tac Toe Goals:
 
 - ~~Implement TicTacToeNode~~
 - ~~Implement command-line UI~~
