@@ -52,16 +52,10 @@ class TicTacToeNode < GameNode
     return leaf_val unless leaf_val.nil?
 
     # Create the boards for each possible move and store them in array children
-    children = []
-    0.upto(BOARD_LENGTH) do |index|
-      children << self.class.new(1-@player, new_board(index)) if cell_empty?(index)
+    (0..BOARD_LENGTH).reduce([]) do |children, index|
+      children << self.class.new(1 - @player, new_board(index)) if cell_empty?(index)
+      children
     end
-    children
-
-    # Seems like this refactor of the code above should work... but it doesn't
-    # (0..BOARD_LENGTH).reduce([]) do |children, index|
-    #   children << self.class.new(1 - @player, new_board(index)) if cell_empty?(index)
-    # end
   end
 
   # Inserts a player marker at index
