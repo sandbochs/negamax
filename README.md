@@ -1,6 +1,7 @@
 ### Ruby implentation of Negamax #####
 
 In progress 
+
 Take everything and implement Tic Tac Toe.
 
 - ~~Implement TicTacToeNode~~
@@ -9,9 +10,9 @@ Take everything and implement Tic Tac Toe.
 - Prune branches already traversed
 - Identify matching rotations and reflections and prune those branches aswell
 
-OneToNGame2 calculcates all node values then stores it in a hash. The AI references the hash for each turn instead of traversing the game tree again.
+OneToNGame2 calculcates all node values then stores it in a hash. It does not recalculate the value of nodes that are identical to nodes it has already traversed. The AI references the hash for each turn instead of traversing the game tree again.
 
-~~Need to figure out how to caluclate all the node.values only once instead of calculating all children.values every turn.~~
+~~Need to figure out how to caluclate all the node.values only once instead of calculating all child.values every turn.~~
 
 OneToNGame lets the player choose to play up to N. It also lets the player choose to go first or second.
 

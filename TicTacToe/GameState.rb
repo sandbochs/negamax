@@ -1,5 +1,6 @@
 class GameState
   
+  class<<self; attr_accessor :all_states; end
   @all_states = {}
   
   attr_reader :value
@@ -7,7 +8,7 @@ class GameState
   def initialize(value, state_string)
     @value = value
     @state = state_string
-    @all_states[value] = self
+    GameState.all_states[value] = self
   end
 
   def <=>(other)
@@ -15,7 +16,7 @@ class GameState
   end
 
   def invert
-    @all_states [2 - @value]
+    GameState.all_states[2 - @value]
   end
 
   def to_s
@@ -23,18 +24,7 @@ class GameState
   end
 
   def get_states
-    @all_states 
+    GameState.all_states 
   end
+
 end
-
-
-class A
-  class<<self;attr_accessor :states;end
-  @states = []
-
-  def get_states
-    A.states
-  end
-
-  def set_state(state)
-    A.states <<
