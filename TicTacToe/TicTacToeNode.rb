@@ -2,18 +2,14 @@ require './GameState'
 require './GameNode'
 
 class TicTacToeNode < GameNode
-
+	BOARD_SIZE = 8 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	#@@NODE_VALUES = {}
-	#attr_reader = :board #Why doesn't this worK!?
+	attr_reader :board #Why doesn't this worK!?
 
 	def initialize(player, board)
 		@player = player #X = 0, O = 1
 		@board = board
 		@values = {}
-	end
-
-	def board
-		@board
 	end
 
 	#FOR MEMOIZATION
@@ -38,12 +34,8 @@ class TicTacToeNode < GameNode
  #  end
 
 	def valid_space?(index)
-		if index >= 0 && index <= @board.length - 1
-			return cell_empty?(index)
-		else
-			return false
-		end
-		true
+		return cell_empty?(index) if index >= 0 && index <= @board.length - 1
+		false
 	end	
 
 	def cell_empty?(index)
@@ -52,20 +44,14 @@ class TicTacToeNode < GameNode
 	end
 
 	def get_children
-		#Return WIN, TIE, or LOSE, if it is a leaf node
+		# Return WIN, TIE, or LOSE, if it is a leaf node
 		leaf_val = self.leaf_value
-		return leaf_val if leaf_val != nil
+		return leaf_val unless leaf_val.nil?
 
-		
-		children = []
-
-		#Create the boards for each possible move and store them in array children
-		0.upto(@board.length - 1) do |index|
-			if cell_empty?(index)
-				children << self.class.new(1 - @player, new_board(index))
-			end
+		# Create the boards for each possible move and store them in array children
+		(0..BOARD_SIZE).reduce([]) do |children, index|
+			children << self.class.new(1 - @player, new_board(index)) if cell_empty?(index)
 		end
-		children
 	end
 
 	#Inserts a player marker at index
