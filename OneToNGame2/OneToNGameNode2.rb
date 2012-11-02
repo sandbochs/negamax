@@ -22,6 +22,10 @@ class OneToNGameNode < GameNode
 
 
   def value
+
+    if @@NODE_VALUES.has_key?(self.game_total)
+      return @@NODE_VALUES[self.game_total] #Return already saved value
+    end
     
     if self.leaf_value != nil
       val = self.leaf_value
@@ -30,13 +34,20 @@ class OneToNGameNode < GameNode
     end
     
     #Ignore nodes that have already been searched
-    if @@NODE_VALUES.has_key?(self.game_total) == false
-      val = self.get_children.map { |child| child.value.invert }.max
-      @@NODE_VALUES[self.game_total] = val if val != nil
-      return val
-    else
-      return @@NODE_VALUES[self.game_total] #Return already saved value
-    end
+    # if @@NODE_VALUES.has_key?(self.game_total) == false
+    #   val = self.get_children.map { |child| child.value.invert }.max
+    #   @@NODE_VALUES[self.game_total] = val if val != nil
+    #   return val
+    # else
+    #   return @@NODE_VALUES[self.game_total] #Return already saved value
+    # end
+
+    #Ignore nodes that have already been searched
+    
+
+    val = self.get_children.map { |child| child.value.invert }.max
+    @@NODE_VALUES[self.game_total] = val
+    val   
     
   end
 
