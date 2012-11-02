@@ -2,6 +2,14 @@
 
 I went off on a tangent while learning about nested arrays that eventually turned into writing an unbeatable Tic Tac Toe 'AI'. I started this during the third week of Dev Bootcamp and it took about a week to learn how to implement the negamax algorithm and write OneToTenGame. Once OneToTenGame was written, it was easy to implement OneToNGame and optimize retrieval time for node values. The Tic Tac Toe node only took a few hours to write after spending so much time with OneToNGame.
 
+To-Do:
+- Create generic 'play' method in GameNode class
+- There should only be one GameNode value method
+- get_child_nodes should return a hash
+- LAW OF DEMETER
+- Override hash method in GameNode
+- Override eql? method in GameNode
+
 Tic Tac Toe Goals:
 
 - ~~Implement TicTacToeNode~~

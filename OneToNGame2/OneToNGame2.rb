@@ -30,9 +30,6 @@ class OneToNGame
 
 	def play
 		nodes = OneToNGameNode.new(0, @current_value, @end_game_value)	#create starting node
-		nodes.value #calculate node values
-		@node_values = nodes.node_values #store node values
-		puts @node_values
 
 		if @ai_player_num == 0	#AI goes first if human chooses to be player 2
 			ai_move(ai_strat(@current_value))
