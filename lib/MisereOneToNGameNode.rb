@@ -2,10 +2,11 @@ class MisereOneToNGameNode < GameNode
 
   attr_reader :game_total
 
-  def initialize(player, game_total, end_game_value)
+  def initialize(player, options, game_total)
     super(player)
     @game_total = game_total
-    @end_game_value = end_game_value
+    @options[:end_game_value] ||= OneToNGameNode.options[:end_game_value]
+    @end_game_value = @options[:end_game_value]
   end
 
   def get_child_nodes
@@ -38,6 +39,10 @@ class MisereOneToNGameNode < GameNode
 
   def self.to_s
     "Misere One to N Game"
+  end
+
+  def self.default_options
+    { :end_game_value => 10 }
   end
 
 end
