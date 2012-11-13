@@ -10,6 +10,8 @@ To-Do:
 - ~~Override hash method in GameNode~~
 - ~~Override eql? method in GameNode~~
 - Write tests for GameNode, OneToNGameNode, MisereOneToNGameNode, EndState
+- Randomly choose a move to play if there are multiple child_nodes with the same value
+- Convert to game_tree Ruby Gem!
 
 Tic Tac Toe Goals:
 
