@@ -1,14 +1,9 @@
-#!/usr/bin/env ruby
-require './lib/GameNode'
-require './lib/OneToNGameNode'
-require './lib/MisereOneToNGameNode'
-require './lib/EndState'
-
-# Ask how to create available games from require
+require './game_list'
 
 class Game
 
   class<<self; attr_accessor :game_node_classes; end
+
   @game_node_classes = [OneToNGameNode, MisereOneToNGameNode]
 
   def initialize
@@ -70,7 +65,7 @@ class Game
       end
     end
 
-    player.to_i
+    player.to_i - 1
 
   end
 

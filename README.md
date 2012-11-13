@@ -9,6 +9,7 @@ To-Do:
 - ~~LAW OF DEMETER~~
 - ~~Override hash method in GameNode~~
 - ~~Override eql? method in GameNode~~
+- Write tests for GameNode, OneToNGameNode, MisereOneToNGameNode, EndState
 
 Tic Tac Toe Goals:
 
