@@ -6,7 +6,6 @@ require './lib/EndState'
 
 # Ask how to create available games from require
 
-
 class Game
 
   class<<self; attr_accessor :game_node_classes; end
