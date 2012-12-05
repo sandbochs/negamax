@@ -41,32 +41,4 @@ class GameNode
     !self.leaf_node_value.nil?
   end
 
-  # def get_child_nodes
-  #   raise NotImplementedError
-  # end
-
-  # def leaf_node_value
-  #   raise NotImplementedError
-  # end
-
-  # def eql?(other)
-  #   raise NotImplementedError
-  # end
-
-  # def hash
-  #   raise NotImplementedError
-  # end
-
-  # def to_s
-  #   raise NotImplementedError
-  # end
-
-  # def self.to_s
-  #   raise NotImplementedError
-  # end
-
-  # def self.options
-  #   raise NotImplementedError
-  # end
-
 end
